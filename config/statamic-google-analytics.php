@@ -15,7 +15,7 @@ return [
 
         // Array will be passed to gtag config (array)
         'additional_config_info' => [
-            'debug' => false
+            'debug' => false,
         ],
 
     ],
@@ -23,7 +23,7 @@ return [
     'analytics' => [
 
         // Path to credentials file (string)
-        'service_account_credentials_json' => storage_path(env("GA_CREDENTIALS_PATH", 'laravel-analytics/credentials.json')),
+        'service_account_credentials_json' => storage_path(env('GA_CREDENTIALS_PATH', 'laravel-analytics/credentials.json')),
 
         // Property ID (string)
         'property_id' => env('GA_PROPERTY_ID', null),
@@ -34,6 +34,6 @@ return [
         // Show analytics per entry (having a slug) (bool)
         'page_graph' => env('GA_PAGE_GRAPH', true),
 
-    ]
+    ],
 
 ];
