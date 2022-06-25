@@ -32,7 +32,7 @@ return [
         'days' => env('GA_DAYS', 30),
 
         // Show analytics per entry (having a slug) (bool)
-        'page_graph' => env('GA_PAGE_GRAPH', false),
+        'page_graph' => env('GA_PAGE_GRAPH', true),
 
     ]
 
