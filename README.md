@@ -4,7 +4,6 @@
 # A Google Analytics 4 addon for Statamic.
 
 [![Latest Version on Packagist](https://img.shields.io/badge/packagist-v1.0.0-blue)](https://packagist.org/p2/insight-media/statamic-google-analytics)
-[![GitHub Code Style Action Status](https://img.shields.io/github/workflow/status/insight-media/statamic-google-analytics/Check%20&%20fix%20styling?label=code%20style)](https://github.com/insight-media/statamic-google-analytics/actions?query=workflow%3A"Check+%26+fix+styling"+branch%3Amain)
 [![Total Downloads](https://img.shields.io/packagist/dt/insight-media/statamic-google-analytics.svg?style=flat-square)](https://packagist.org/packages/insight-media/statamic-google-analytics)
 
 This addon provides two main features: Tracking and Analytics.
