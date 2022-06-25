@@ -81,7 +81,6 @@ Configure the widgets in your config/statamic/cp.php widgets key
 'type' => 'analytics',
 'group' => 'totalVisitorsAndPageViews|topReferrers|mostVisitedPages|topBrowsers|topcountries',
 'width' => 50,
-'days' => 10,
 'display' => 'table|bar|line|pie|doughnut'
 ]`
 
