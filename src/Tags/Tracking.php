@@ -42,8 +42,6 @@ class Tracking extends Tags
 
     private function getConfig($key)
     {
-        $config = collect(Config::get('statamic-google-analytics'));
-
-        return $config->get($key) ?? null;
+        return Config::get('statamic-google-analytics.'.$key, null);
     }
 }
