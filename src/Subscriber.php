@@ -47,7 +47,7 @@ class Subscriber
         $fields = $this->getFields();
 
         collect($fields)->each(function ($field) {
-            $this->blueprint->ensureFieldInSection($field['handle'], $field['field'], 'Analytics');
+            $this->blueprint->ensureFieldPrepended($field['handle'], $field['field'], 'Analytics');
         });
     }
 
