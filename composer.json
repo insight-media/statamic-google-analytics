@@ -11,7 +11,7 @@
   ],
   "require": {
     "php": "^8.0",
-    "google/analytics-data": "^0.8.4",
+    "google/analytics-data": "^0.10",
     "statamic/cms": "^3.3||^4.0"
   },
   "require-dev": {
