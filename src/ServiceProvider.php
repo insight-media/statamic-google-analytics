@@ -16,8 +16,9 @@ class ServiceProvider extends AddonServiceProvider
 
     protected $viewNamespace = 'insight-media-analytics';
 
-    protected $scripts = [
-        __DIR__ . '/../resources/dist/js/cp.js'
+    protected $vite = [
+        'input' => ['resources/js/cp.js'],
+        'publicDirectory' => 'resources/dist',
     ];
 
     protected $widgets = [
@@ -44,7 +45,7 @@ class ServiceProvider extends AddonServiceProvider
         Event::subscribe(Subscriber::class);
 
         $this->registerActionRoutes(function () {
-            Route::get('page-data/', [PageGraph::class, 'getPageGraph']);
+            Route::get('page-data', [PageGraph::class, 'getPageGraph'])->name('statamic-google-analytics.page-data');
         });
     }
 }

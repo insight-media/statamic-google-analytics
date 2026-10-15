@@ -14,45 +14,51 @@
             </p>
         @endif
         @if ($data)
+            @php
+                $chartData = [
+                    'labels' => $data->pluck('url'),
+                    'datasets' => [['label' => __('statamic-google-analytics::messages.views'), 'data' => $data->pluck('pageViews')]],
+                ];
+            @endphp
             @switch($config['display'] ?? 'table')
                 @case('bar-chart')
                 @case('bar')
-                <bar-chart :chartdata="trChartData"/>
+                <bar-chart :chartdata="{{ Illuminate\Support\Js::from($chartData) }}"/>
                 @break
 
                 @case('line-chart')
                 @case('line')
-                <line-chart :chartdata="trChartData"/>
+                <line-chart :chartdata="{{ Illuminate\Support\Js::from($chartData) }}"/>
                 @break
 
                 @case('pie-chart')
                 @case('pie')
-                <pie-chart :chartdata="trChartData"/>
+                <pie-chart :chartdata="{{ Illuminate\Support\Js::from($chartData) }}"/>
                 @break
 
                 @case('doughnut-chart')
                 @case('doughnut')
-                <doughnut-chart :chartdata="trChartData"/>
+                <doughnut-chart :chartdata="{{ Illuminate\Support\Js::from($chartData) }}"/>
                 @break
 
                 @case('radar-chart')
                 @case('radar')
-                <radar-chart :chartdata="trChartData"/>
+                <radar-chart :chartdata="{{ Illuminate\Support\Js::from($chartData) }}"/>
                 @break
 
                 @case('polar-chart')
                 @case('polar')
-                <polar-chart :chartdata="trChartData"/>
+                <polar-chart :chartdata="{{ Illuminate\Support\Js::from($chartData) }}"/>
                 @break
 
                 @case('bubble-chart')
                 @case('bubble')
-                <bubble-chart :chartdata="trChartData"/>
+                <bubble-chart :chartdata="{{ Illuminate\Support\Js::from($chartData) }}"/>
                 @break
 
                 @case('scatter-chart')
                 @case('scatter')
-                <scatter-chart :chartdata="trChartData"/>
+                <scatter-chart :chartdata="{{ Illuminate\Support\Js::from($chartData) }}"/>
                 @break
 
                 @default
@@ -87,15 +93,3 @@
     </div>
 
 </div>
-@if ($data)
-    <script>
-        const trChartData = {
-            labels: {!! json_encode($data->pluck("url")) !!},
-            datasets: [
-                {
-                    label: "Views",
-                    data: {!! json_encode($data->pluck("pageViews"))!!},
-                }]
-        };
-    </script>
-@endif

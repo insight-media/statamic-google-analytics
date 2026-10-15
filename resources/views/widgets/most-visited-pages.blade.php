@@ -2,7 +2,7 @@
     <header class="flex items-center justify-between p-2 border-b">
         <h2 class="flex items-center">
             <div class="w-6 h-6 mr-1 text-grey-80">
-                @cp_svg('pages')
+                @cp_svg('file-content-list')
             </div>
             <span>{{ __('statamic-google-analytics::messages.most-viewed-pages-header', ['days' => $config['days'] ?? 30]) }}</span>
         </h2>
@@ -14,45 +14,51 @@
             </p>
         @endif
         @if ($data)
+            @php
+                $chartData = [
+                    'labels' => $data->pluck('pageTitle'),
+                    'datasets' => [['label' => __('statamic-google-analytics::messages.views'), 'data' => $data->pluck('pageViews')]],
+                ];
+            @endphp
             @switch($config['display'] ?? 'table')
                 @case('bar-chart')
                 @case('bar')
-                <bar-chart :chartdata="mvpChartData"/>
+                <bar-chart :chartdata="{{ Illuminate\Support\Js::from($chartData) }}"/>
                 @break
 
                 @case('line-chart')
                 @case('line')
-                <line-chart :chartdata="mvpChartData"/>
+                <line-chart :chartdata="{{ Illuminate\Support\Js::from($chartData) }}"/>
                 @break
 
                 @case('pie-chart')
                 @case('pie')
-                <pie-chart :chartdata="mvpChartData"/>
+                <pie-chart :chartdata="{{ Illuminate\Support\Js::from($chartData) }}"/>
                 @break
 
                 @case('doughnut-chart')
                 @case('doughnut')
-                <doughnut-chart :chartdata="mvpChartData"/>
+                <doughnut-chart :chartdata="{{ Illuminate\Support\Js::from($chartData) }}"/>
                 @break
 
                 @case('radar-chart')
                 @case('radar')
-                <radar-chart :chartdata="mvpChartData"/>
+                <radar-chart :chartdata="{{ Illuminate\Support\Js::from($chartData) }}"/>
                 @break
 
                 @case('polar-chart')
                 @case('polar')
-                <polar-chart :chartdata="mvpChartData"/>
+                <polar-chart :chartdata="{{ Illuminate\Support\Js::from($chartData) }}"/>
                 @break
 
                 @case('bubble-chart')
                 @case('bubble')
-                <bubble-chart :chartdata="mvpChartData"/>
+                <bubble-chart :chartdata="{{ Illuminate\Support\Js::from($chartData) }}"/>
                 @break
 
                 @case('scatter-chart')
                 @case('scatter')
-                <scatter-chart :chartdata="mvpChartData"/>
+                <scatter-chart :chartdata="{{ Illuminate\Support\Js::from($chartData) }}"/>
                 @break
 
                 @default
@@ -78,15 +84,3 @@
     </div>
 
 </div>
-@if ($data)
-    <script>
-        const mvpChartData = {
-            labels: {!! json_encode($data->pluck("pageTitle")) !!},
-            datasets: [
-                {
-                    label: "Views",
-                    data: {!! json_encode($data->pluck("pageViews"))!!},
-                }]
-        };
-    </script>
-@endif

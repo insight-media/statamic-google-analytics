@@ -30,7 +30,7 @@ class Analytics extends Widget
 
     public function __construct()
     {
-        $this->client = new AnalyticsClient;
+        $this->client = app(AnalyticsClient::class);
     }
 
     /**
@@ -52,7 +52,7 @@ class Analytics extends Widget
     protected function totalVisitorsAndPageViews(): View
     {
         $data = $message = null;
-        $period = Period::days(Config::get('statamic-google-analytics.analytics.days'), 30);
+        $period = Period::days($this->config('days', Config::get('statamic-google-analytics.analytics.days', 30)));
 
         try {
             $data = $this->client->fetchTotalVisitorsAndPageViews($period);
@@ -68,7 +68,7 @@ class Analytics extends Widget
     protected function topReferrers(): View
     {
         $data = $message = null;
-        $period = Period::days(Config::get('statamic-google-analytics.analytics.days'), 30);
+        $period = Period::days($this->config('days', Config::get('statamic-google-analytics.analytics.days', 30)));
         $maxResults = $this->config('max_results', 10);
 
         try {
@@ -85,7 +85,7 @@ class Analytics extends Widget
     protected function topBrowsers(): View
     {
         $data = $message = null;
-        $period = Period::days(Config::get('statamic-google-analytics.analytics.days'), 30);
+        $period = Period::days($this->config('days', Config::get('statamic-google-analytics.analytics.days', 30)));
         $maxResults = $this->config('max_results', 10);
 
         try {
@@ -103,7 +103,7 @@ class Analytics extends Widget
     {
 
         $data = $message = null;
-        $period = Period::days(Config::get('statamic-google-analytics.analytics.days'), 30);
+        $period = Period::days($this->config('days', Config::get('statamic-google-analytics.analytics.days', 30)));
         $maxResults = $this->config('max_results', 10);
 
         try {
@@ -120,7 +120,7 @@ class Analytics extends Widget
     protected function topCountries(): View
     {
         $data = $message = null;
-        $period = Period::days(Config::get('statamic-google-analytics.analytics.days'), 30);
+        $period = Period::days($this->config('days', Config::get('statamic-google-analytics.analytics.days', 30)));
         $maxResults = $this->config('max_results', 10);
 
         try {

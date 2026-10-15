@@ -10,13 +10,13 @@
     }
   ],
   "require": {
-    "php": "^8.2",
+    "php": "^8.4",
     "google/analytics-data": "^0.10",
-    "statamic/cms": "^5.0 || ^6.0"
+    "statamic/cms": "^6.0"
   },
   "require-dev": {
-    "orchestra/testbench": "^9.0",
-    "phpunit/phpunit": "^11.0"
+    "orchestra/testbench": "^10.8",
+    "phpunit/phpunit": "^12.0"
   },
   "autoload": {
     "psr-4": {

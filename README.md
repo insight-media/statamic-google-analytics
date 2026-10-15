@@ -18,6 +18,8 @@ This addon provides analytics widgets and an analytics reporting tab per entry.
 
 ## Installation
 
+Requires PHP 8.4 or later and Statamic 6 (Laravel 12 or later).
+
 You can install the package via composer:
 
 ```bash
@@ -40,7 +42,7 @@ Set your Tracking ID (string)
 
 GA_TRACKING_ID
 
-CP Admins should not be tracked (bool)
+Users with control panel access should not be tracked (bool)
 
 GA_IGNORE_ADMINS
 
@@ -83,6 +85,21 @@ Configure the widgets in your config/statamic/cp.php widgets key
 'width' => 50,
 'display' => 'table|bar|line|pie|doughnut'
 ]`
+
+## Development
+
+Install PHP dependencies before JavaScript dependencies so Statamic's Vite tooling is available:
+
+```bash
+composer install
+yarn install
+yarn build
+composer phpunit
+```
+
+Use `yarn dev` to start the Vite development server. Node.js 20.19+ or 22.12+ is required.
+The compiled control panel assets in `resources/dist/build` are included with the addon.
+After upgrading an existing site, run `php artisan vendor:publish --tag=statamic-google-analytics --force` to publish the new assets.
 
 ## Changelog
 

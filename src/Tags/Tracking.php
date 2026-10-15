@@ -22,7 +22,7 @@ class Tracking extends Tags
 
         $ignore_admins = $this->getConfig('tracking.ignore_admins', false);
         $user = User::current();
-        if ($ignore_admins && $user && $user->can('cp:access')) {
+        if ($ignore_admins && $user && $user->can('access cp')) {
             return;
         }
 

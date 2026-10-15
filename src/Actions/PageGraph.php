@@ -4,7 +4,7 @@ namespace InsightMedia\StatamicGoogleAnalytics\Actions;
 
 use InsightMedia\StatamicGoogleAnalytics\AnalyticsClient;
 use InsightMedia\StatamicGoogleAnalytics\Period;
-use Statamic\Entries\Entry;
+use Statamic\Facades\Entry;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
 use Statamic\Facades\Config;
@@ -26,16 +26,16 @@ class PageGraph extends Controller
         $data = Cache::get($key, null);
 
         if ($data === null) {
-            $period = Period::days(Config::get('statamic-google-analytics.analytics.days'), 30);
+            $period = Period::days(Config::get('statamic-google-analytics.analytics.days', 30));
 
-            $client = new AnalyticsClient;
+            $client = app(AnalyticsClient::class);
             $data = $client->fetchTotalVisitorsAndPageViewsForURL($period, $url);
 
             Cache::put($key, $data, 600);
         }
 
         return [
-            'labels' => $data->pluck('date'),
+            'labels' => $data->map(fn ($row) => $row['date']->format('Y-m-d')),
             'datasets' => [
                 [
                     'label' => __('visitors'),

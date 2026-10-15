@@ -2,7 +2,7 @@
     <header class="flex items-center justify-between p-2 border-b">
         <h2 class="flex items-center">
             <div class="w-6 h-6 mr-1 text-grey-80">
-                @cp_svg('home-page')
+                @cp_svg('home')
             </div>
             <span>{{ __('statamic-google-analytics::messages.top-browsers-header', ['days' => $config['days'] ?? 30]) }}</span>
         </h2>
@@ -14,45 +14,51 @@
             </p>
         @endif
         @if ($data)
+            @php
+                $chartData = [
+                    'labels' => $data->pluck('browser'),
+                    'datasets' => [['label' => __('statamic-google-analytics::messages.sessions'), 'data' => $data->pluck('sessions')]],
+                ];
+            @endphp
             @switch($config['display'] ?? 'table')
                 @case('bar-chart')
                 @case('bar')
-                <bar-chart :chartdata="tbChartData"/>
+                <bar-chart :chartdata="{{ Illuminate\Support\Js::from($chartData) }}"/>
                 @break
 
                 @case('line-chart')
                 @case('line')
-                <line-chart :chartdata="tbChartData"/>
+                <line-chart :chartdata="{{ Illuminate\Support\Js::from($chartData) }}"/>
                 @break
 
                 @case('pie-chart')
                 @case('pie')
-                <pie-chart :chartdata="tbChartData"/>
+                <pie-chart :chartdata="{{ Illuminate\Support\Js::from($chartData) }}"/>
                 @break
 
                 @case('doughnut-chart')
                 @case('doughnut')
-                <doughnut-chart :chartdata="tbChartData" :options="{legend: {display: true}"/>
+                <doughnut-chart :chartdata="{{ Illuminate\Support\Js::from($chartData) }}" :options="{plugins: {legend: {display: true}}}"/>
                 @break
 
                 @case('radar-chart')
                 @case('radar')
-                <radar-chart :chartdata="tbChartData"/>
+                <radar-chart :chartdata="{{ Illuminate\Support\Js::from($chartData) }}"/>
                 @break
 
                 @case('polar-chart')
                 @case('polar')
-                <polar-chart :chartdata="tbChartData"/>
+                <polar-chart :chartdata="{{ Illuminate\Support\Js::from($chartData) }}"/>
                 @break
 
                 @case('bubble-chart')
                 @case('bubble')
-                <bubble-chart :chartdata="tbChartData"/>
+                <bubble-chart :chartdata="{{ Illuminate\Support\Js::from($chartData) }}"/>
                 @break
 
                 @case('scatter-chart')
                 @case('scatter')
-                <scatter-chart :chartdata="tbChartData"/>
+                <scatter-chart :chartdata="{{ Illuminate\Support\Js::from($chartData) }}"/>
                 @break
 
                 @default
@@ -80,15 +86,3 @@
     </div>
 
 </div>
-
-@if ($data)
-    <script>
-        const tbChartData = {
-            labels: {!! json_encode($data-> pluck("browser")) !!},
-            datasets: [{
-                label: "{{ __('statamic-google-analytics::messages.top-browsers-header', ['days' => $config['days'] ?? 30 ]) }}",
-                data: {!! json_encode($data -> pluck("sessions"))!!},
-            }]
-        };
-    </script>
-@endif

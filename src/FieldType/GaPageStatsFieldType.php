@@ -2,10 +2,8 @@
 
 namespace InsightMedia\StatamicGoogleAnalytics\FieldType;
 
-use Statamic\Entries\Entry;
+use Statamic\Contracts\Entries\Entry;
 use Statamic\Fields\Fieldtype;
-
-use function PHPUnit\Framework\isInstanceOf;
 
 class GaPageStatsFieldType extends Fieldtype
 {
@@ -27,8 +25,8 @@ class GaPageStatsFieldType extends Fieldtype
     public function preProcess(mixed $data): array
     {
         return [
-            'title' => "testing",
-            'entry' => ($this->field()->parent() instanceof Entry) ? $this->field()->parent()->id() : ''
+            'entry' => ($this->field()->parent() instanceof Entry) ? $this->field()->parent()->id() : '',
+            'url' => route('statamic.statamic-google-analytics.page-data'),
         ];
     }
 

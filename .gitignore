@@ -2,3 +2,5 @@ node_modules
 .idea
 .vscode
 /vendor
+/resources/dist/hot
+/.phpunit.cache

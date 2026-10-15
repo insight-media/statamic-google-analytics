@@ -16,45 +16,51 @@
 
         @if ($data)
 
+            @php
+                $chartData = [
+                    'labels' => $data->pluck('country'),
+                    'datasets' => [['label' => __('statamic-google-analytics::messages.sessions'), 'data' => $data->pluck('sessions')]],
+                ];
+            @endphp
             @switch($config['display'] ?? 'table')
                 @case('bar-chart')
                 @case('bar')
-                <bar-chart :chartdata="tcChartData"/>
+                <bar-chart :chartdata="{{ Illuminate\Support\Js::from($chartData) }}"/>
                 @break
 
                 @case('line-chart')
                 @case('line')
-                <line-chart :chartdata="tcChartData"/>
+                <line-chart :chartdata="{{ Illuminate\Support\Js::from($chartData) }}"/>
                 @break
 
                 @case('pie-chart')
                 @case('pie')
-                <pie-chart :chartdata="tcChartData"/>
+                <pie-chart :chartdata="{{ Illuminate\Support\Js::from($chartData) }}"/>
                 @break
 
                 @case('doughnut-chart')
                 @case('doughnut')
-                <doughnut-chart :chartdata="tcChartData"/>
+                <doughnut-chart :chartdata="{{ Illuminate\Support\Js::from($chartData) }}"/>
                 @break
 
                 @case('radar-chart')
                 @case('radar')
-                <radar-chart :chartdata="tcChartData"/>
+                <radar-chart :chartdata="{{ Illuminate\Support\Js::from($chartData) }}"/>
                 @break
 
                 @case('polar-chart')
                 @case('polar')
-                <polar-chart :chartdata="tcChartData"/>
+                <polar-chart :chartdata="{{ Illuminate\Support\Js::from($chartData) }}"/>
                 @break
 
                 @case('bubble-chart')
                 @case('bubble')
-                <bubble-chart :chartdata="tcChartData"/>
+                <bubble-chart :chartdata="{{ Illuminate\Support\Js::from($chartData) }}"/>
                 @break
 
                 @case('scatter-chart')
                 @case('scatter')
-                <scatter-chart :chartdata="tcChartData"/>
+                <scatter-chart :chartdata="{{ Illuminate\Support\Js::from($chartData) }}"/>
                 @break
 
                 @default
@@ -84,14 +90,3 @@
     </div>
 
 </div>
-@if ($data)
-    <script>
-        const tcChartData = {
-            labels: {!! json_encode($data->pluck("country")) !!},
-            datasets: [{
-                label: "{{ __('statamic-google-analytics::messages.top-countries-header', ['days' => $config['days'] ?? 30 ]) }}",
-                data: {!! json_encode($data->pluck("sessions"))!!},
-            }]
-        };
-    </script>
-@endif
